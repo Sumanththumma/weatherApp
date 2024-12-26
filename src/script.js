@@ -1,5 +1,7 @@
+const API_KEY = "b703eca2a1424a449f790654242612";
 const date = new Date();
 const timeanddate = document.getElementById('timeanddate')
+
 
 const hoursandminutes = () =>{
     let minutes =  date.getMinutes();
@@ -37,3 +39,7 @@ setInterval(() => {
                 <div class="text-sm font-normal" id="day">${day()}, ${tareekh()}</div>
             </div>`
 }, 1000);
+
+fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Hyderabad&aqi=yes`).then((response)=>{}).then((data)=>{
+    console.log(data.json());
+})
