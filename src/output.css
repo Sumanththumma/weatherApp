@@ -638,6 +638,14 @@ video {
   background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1));
 }
 
+.bg-night {
+  background-image: url(https://images.pexels.com/photos/813269/pexels-photo-813269.jpeg?cs=srgb&dl=pexels-minan1398-813269.jpg&fm=jpg);
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
