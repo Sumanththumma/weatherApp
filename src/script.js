@@ -1,7 +1,8 @@
 const API_KEY = "b703eca2a1424a449f790654242612";
 const date = new Date();
-const timeanddate = document.getElementById('timeanddate')
-
+const timeanddate = document.getElementById('timeanddate');
+const locationData = document.getElementById('location');
+const tempStats = document.getElementById('stats');
 
 const hoursandminutes = () =>{
     let minutes =  date.getMinutes();
@@ -40,6 +41,20 @@ setInterval(() => {
             </div>`
 }, 1000);
 
-fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Hyderabad&aqi=yes`).then((response)=>{}).then((data)=>{
-    console.log(data.json());
+const data = fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Hyderabad&aqi=yes`)
+.then(response => response.json()) // Convert the response to JSON
+.then(data => {
+  console.log(data); // Use the JSON data
+  locationData.innerHTML = `<div id="city"><i class="fa-sharp-duotone fa-solid fa-location-pin"></i> ${data.location.name}</div>
+                        <div id="country">${data.location.country}</div>`
+
+  tempStats.innerHTML =  `<div id="temperature-box" class="flex flex-col">
+                            <h1 class="font-bold text-3xl text-start" id="temp">${data.current.heatindex_c} &deg;C</h1>
+                            <p id="feelslike" class="text-sm text-start">feels like ${data.current.feelslike_c}&deg;C</p>
+                        </div>
+                            <div id="icon-box">
+                            <img src="${data.current.condition.icon}" alt="" class="object-cover w-full h-full px-3">
+                        </div>`                      
+
 })
+.catch(error => console.error('Error:', error));
