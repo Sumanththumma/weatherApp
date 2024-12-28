@@ -8,17 +8,23 @@
 </head>
 <body class= "w-full h-screen bg-slate-800 flex flex-col items-center text-white font-sans">
 
-        <div id="search" class="bg-slate-50 px-2 py-1 mt-5 w-5/6 rounded-md">
-            <i class="fa fa-search text-black"></i>
-            <input type="text" class=" focus:outline-none text-slate-900 bg-slate-50" placeholder=" Your Location"/>
+        <div id="search" class="bg-slate-50 px-2 py-1 mt-5 w-5/6 rounded-md flex  justify-between items-center">
+            <i class="fa fa-search text-black p-1"></i>
+            <input type="text" class=" focus:outline-none text-slate-900 bg-slate-50 p-0" placeholder=" Your Location"/>
+            <i class="fa-solid fa-bars text-black p-1"></i>
         </div>
 
         <div id="timeanddate" class="flex items-start justify-between mt-4 w-5/6  rounded-lg bg-black px-2 py-1 shadow-lg">
             
         </div>
-        <div id="location" class=" bg-day bg-cover text-slate-900 font-semibold w-5/6 rounded-md px-2 py-1 mt-3 shadow-lg">
-            <div id="city">New Delhi</div>
-            <div id="country">Ind</div>
+        <div id="location" class=" bg-blue-400 bg-cover flex justify-between items-center text-white font-semibold w-5/6 rounded-md px-2 py-1 mt-3 shadow-lg">
+            <div id="locationbox" class="flex flex-col">
+                <div id="city">New Delhi</div>
+                <div id="country">Ind</div>
+            </div>
+            <div id="iconbox">
+                <div class="iconimg"><img src="" alt=""></div>
+            </div>
         </div>
         <div id="stats" class="flex gap-0 items-center justify-center mt-4 w-5/6 h-52 font-extrabold rounded-lg bg-day bg-blend-soft-light bg-cover px-2 py-1 shadow-lg">
             <div id="temperature-box" class="flex flex-col">
