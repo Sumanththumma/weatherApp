@@ -34,7 +34,7 @@ const day = (date) => {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday",
+    "Saturday", 
   ];
   return dayarr[date.getDay()];
 };
@@ -73,12 +73,12 @@ let bgArr = ["bg-blue-400","bg-black"];
 
 // setInterval(() => {
 const data = fetch(
-  `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Adilabad&aqi=yes`
+  `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Pune&aqi=yes`
 )
   .then((response) => response.json())
   .then((data) => {
     locationData.innerHTML = `<div id="locationbox" class="flex flex-col">
-                                <div id="city">${data.location.name}</div>
+                                <div id="city">${data.location.name}, ${data.location.region}</div>
                                 <div id="country">${data.location.country}</div>
                             </div>
                             <div id="iconbox">
