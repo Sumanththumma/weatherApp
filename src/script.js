@@ -86,7 +86,7 @@ currLocation();
 
 
 
-let locationKey = "Hyderabad"
+let locationKey = "Karimnagar"
 let input = document.querySelector('#input');
 input.addEventListener('search', ()=>{
   locationKey = input.value;
