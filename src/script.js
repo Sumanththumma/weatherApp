@@ -6,6 +6,152 @@ const tempStats = document.getElementById("stats");
 const forecast = document.querySelector("#forecast");
 let fetchInterval = 60000 * 10;
 
+let currLocation = ()=>{
+     navigator.geolocation.getCurrentPosition(position => {
+     const { latitude , longitude } = position.coords;
+     const data = fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${latitude},${longitude}&aqi=yes&days=8`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+    
+        locationData.innerHTML = `<div id="locationbox" class="flex flex-col">
+                                    <div id="city">${data.location.name}, ${data.location.region}</div>
+                                    <div id="country">${data.location.country}</div>
+                                </div>
+                                <div id="iconbox">
+                                    <div class="object-cover">
+                                        <img src="${data.current.condition.icon}" alt="">
+                                    </div>
+                                </div>`;
+    
+        tempStats.innerHTML = `<div id="temperature-box" class="flex flex-col">
+                                    <h1 class="font-extrabold text-4xl text-start" id="temp">${data.current.heatindex_c} &deg;C</h1>
+                                    <p id="feelslike" class="text-md text-start">feels  like  ${data.current.feelslike_c}&deg;C</p>
+                                </div>
+                                    <div id="icon-box">
+                                    <img src="${data.current.condition.icon}" alt="" class="object-cover w-full h-auto px-3">
+                                </div>`;
+        forecast.innerHTML = `
+                              <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[1].date}</h3>
+                              <p>${data.forecast.forecastday[1].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[1].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[2].date}</h3>
+                              <p>${data.forecast.forecastday[2].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[2].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[3].date}</h3>
+                              <p>${data.forecast.forecastday[3].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[3].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[4].date}</h3>
+                              <p>${data.forecast.forecastday[4].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[4].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[5].date}</h3>
+                              <p>${data.forecast.forecastday[5].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[5].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[6].date}</h3>
+                              <p>${data.forecast.forecastday[6].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[6].day.condition.icon}" class = "w-8">
+                          </div>
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                              <h3>${data.forecast.forecastday[7].date}</h3>
+                              <p>${data.forecast.forecastday[7].day.avgtemp_c}&deg;C</p>
+                              <img src = "${data.forecast.forecastday[7].day.condition.icon}" class = "w-8">
+                          </div>
+        `                        
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+
+  );
+
+}
+currLocation();
+
+
+
+
+
+
+
+
+
+let locationKey = "Hyderabad"
+let input = document.querySelector('#input');
+input.addEventListener('search', ()=>{
+  locationKey = input.value;
+  const data = fetch(
+    `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${locationKey}&aqi=yes&days=8`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      locationData.innerHTML = `<div id="locationbox" class="flex flex-col">
+                                  <div id="city">${data.location.name}, ${data.location.region}</div>
+                                  <div id="country">${data.location.country}</div>
+                              </div>
+                              <div id="iconbox">
+                                  <div class="object-cover">
+                                      <img src="${data.current.condition.icon}" alt="">
+                                  </div>
+                              </div>`;
+  
+      tempStats.innerHTML = `<div id="temperature-box" class="flex flex-col">
+                                  <h1 class="font-extrabold text-4xl text-start" id="temp">${data.current.heatindex_c} &deg;C</h1>
+                                  <p id="feelslike" class="text-md text-start">feels  like  ${data.current.feelslike_c}&deg;C</p>
+                              </div>
+                                  <div id="icon-box">
+                                  <img src="${data.current.condition.icon}" alt="" class="object-cover w-full h-auto px-3">
+                              </div>`;
+      forecast.innerHTML = `
+                            <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[1].date}</h3>
+                            <p>${data.forecast.forecastday[1].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[1].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[2].date}</h3>
+                            <p>${data.forecast.forecastday[2].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[2].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[3].date}</h3>
+                            <p>${data.forecast.forecastday[3].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[3].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[4].date}</h3>
+                            <p>${data.forecast.forecastday[4].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[4].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[5].date}</h3>
+                            <p>${data.forecast.forecastday[5].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[5].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[6].date}</h3>
+                            <p>${data.forecast.forecastday[6].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[6].day.condition.icon}" class = "w-8">
+                        </div>
+                        <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                            <h3>${data.forecast.forecastday[7].date}</h3>
+                            <p>${data.forecast.forecastday[7].day.avgtemp_c}&deg;C</p>
+                            <img src = "${data.forecast.forecastday[7].day.condition.icon}" class = "w-8">
+                        </div>
+      `                        
+    })
+    .catch((error) => console.error("Error:", error));
+})
 const hoursandminutes = (date) => {
   let minutes = date.getMinutes();
   let hours = date.getHours();
@@ -74,11 +220,11 @@ let bgArr = ["bg-blue-400","bg-black"];
 
 // setInterval(() => {
 const data = fetch(
-  `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=Pune&aqi=yes&days=8`
+  `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${locationKey}&aqi=yes&days=8`
 )
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
+
     locationData.innerHTML = `<div id="locationbox" class="flex flex-col">
                                 <div id="city">${data.location.name}, ${data.location.region}</div>
                                 <div id="country">${data.location.country}</div>
