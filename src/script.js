@@ -3,6 +3,7 @@ const date = new Date();
 const timeanddate = document.getElementById("timeanddate");
 const locationData = document.getElementById("location");
 const tempStats = document.getElementById("stats");
+const forecast = document.querySelector("#forecast");
 let fetchInterval = 60000 * 10;
 
 const hoursandminutes = (date) => {
@@ -73,10 +74,11 @@ let bgArr = ["bg-blue-400","bg-black"];
 
 // setInterval(() => {
 const data = fetch(
-  `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=Pune&aqi=yes`
+  `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=Pune&aqi=yes&days=8`
 )
   .then((response) => response.json())
   .then((data) => {
+    console.log(data);
     locationData.innerHTML = `<div id="locationbox" class="flex flex-col">
                                 <div id="city">${data.location.name}, ${data.location.region}</div>
                                 <div id="country">${data.location.country}</div>
@@ -94,6 +96,43 @@ const data = fetch(
                                 <div id="icon-box">
                                 <img src="${data.current.condition.icon}" alt="" class="object-cover w-full h-auto px-3">
                             </div>`;
+    forecast.innerHTML = `
+                          <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[1].date}</h3>
+                          <p>${data.forecast.forecastday[1].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[1].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[2].date}</h3>
+                          <p>${data.forecast.forecastday[2].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[2].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[3].date}</h3>
+                          <p>${data.forecast.forecastday[3].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[3].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[4].date}</h3>
+                          <p>${data.forecast.forecastday[4].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[4].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[5].date}</h3>
+                          <p>${data.forecast.forecastday[5].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[5].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[6].date}</h3>
+                          <p>${data.forecast.forecastday[6].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[6].day.condition.icon}" class = "w-8">
+                      </div>
+                      <div id="forecast-next-day" class="flex items-center bg-slate-500 w-full rounded-md px-1 justify-between">
+                          <h3>${data.forecast.forecastday[7].date}</h3>
+                          <p>${data.forecast.forecastday[7].day.avgtemp_c}&deg;C</p>
+                          <img src = "${data.forecast.forecastday[7].day.condition.icon}" class = "w-8">
+                      </div>
+    `                        
   })
   .catch((error) => console.error("Error:", error));
 // },6000);
